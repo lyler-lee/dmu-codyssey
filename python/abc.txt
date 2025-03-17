@@ -23,3 +23,6 @@ map() 함수를 사용해서 map(함수, key)
 			ㄴ 함수에 
 filter() 함수를 사용해서 
  ㄴ 위 두 함수를 사용해서 필터링이 가능.
+
+os.path.abspath(__file__) 로 파일 이름을 포함한 절대경로를 가져올수 있음
+os.path.dirname() 으로 경로를 가져오고
