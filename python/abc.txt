@@ -1,0 +1,25 @@
+
+a.py b.py o.py에 다 main이 있고 
+
+a.py     안에 
+__name__ == __main__  
+
+__name__ 의 이름은?  
+
+b.py     안에
+__name__ == __main__   있을때 
+
+
+
+o.py
+
+
+
+return 문 안에서도 [] 로 묶어서 리스트를 만들어서 "반복" 해서 "필터링"을 해서 불러올수있음
+
+
+timestamp,event,message
+map() 함수를 사용해서 map(함수, key) 
+			ㄴ 함수에 
+filter() 함수를 사용해서 
+ ㄴ 위 두 함수를 사용해서 필터링이 가능.
