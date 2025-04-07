@@ -40,6 +40,7 @@ class DummySensor:
         현재 설정된 환경 데이터를 반환한다.
         """
         return self.env_values
+    
 
 
 # DummySensor 클래스 인스턴스 생성
@@ -51,7 +52,7 @@ ds.set_env()
 # 생성된 센서 값을 출력
 env_data = ds.get_env()
 
-# 출력
-print("현재 센서 데이터:")
-for key, value in env_data.items():
-    print(f"{key}: {value}")
+if __name__ == "__main__":
+    print("현재 센서 데이터:")
+    for key, value in env_data.items():
+        print(f"{key}: {value}")
