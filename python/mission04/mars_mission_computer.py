@@ -10,10 +10,11 @@ import time
 import json
 import random
 
+
 class DummySensor:
     """
-    DummySensor 클래스는 화성 기지의 환경 센서 데이터를 모의 생성하기 위한 클래스입니다.
-    각 센서에 대해 임의의 값을 리턴합니다.
+    DummySensor 클래스는 화성 기지의 환경 센서 데이터를 생성하기 위한 클래스
+    각 센서에 대해 임의의 값을 리턴함
     """
 
     def get_value(self, sensor_name):
@@ -22,7 +23,7 @@ class DummySensor:
                 # 화성 기지 내부 온도 (섭씨)
                 return round(random.uniform(18, 25), 2)
             elif sensor_name == "mars_base_external_temperature":
-                # 화성 기지 외부 온도 (섭씨) – 화성은 매우 추운 환경을 가정
+                # 화성 기지 외부 온도 (섭씨) 
                 return round(random.uniform(-80, 0), 2)
             elif sensor_name == "mars_base_internal_humidity":
                 # 화성 기지 내부 습도 (%)
@@ -38,13 +39,16 @@ class DummySensor:
                 return round(random.uniform(20, 21), 2)
             else:
                 return None
+            
         except Exception as e:
             print(f"{sensor_name} 센서값을 가져오는 중 오류: {e}")
+
         return None
 
 
 # 문제 3에서 제작한 DummySensor 클래스를 ds라는 이름으로 인스턴스화
 ds = DummySensor()
+
 
 class MissionComputer:
     def __init__(self):
@@ -62,7 +66,7 @@ class MissionComputer:
         """
         5초 간격으로 센서 데이터를 읽어 env_values에 저장하고,
         JSON 포맷으로 출력하는 메소드.
-        시스템 정보(여기서는 센서 데이터)를 가져오는 부분은 예외처리 되어 있습니다.
+        시스템 정보(여기서는 센서 데이터)를 가져오는 부분은 예외처리 
         """
 
         while True:
@@ -75,6 +79,7 @@ class MissionComputer:
                 self.env_values["mars_base_internal_oxygen"] = ds.get_value("mars_base_internal_oxygen")
 
                 # 환경 정보를 json 형태로 출력
+                ##  한글 문자열이 아스키 형태의 문자열로 변경되는 것을 방지하는 방법으로 ensure_ascii=false 사용
                 print(json.dumps(self.env_values, ensure_ascii=False))
 
             except Exception as e:
@@ -86,7 +91,7 @@ class MissionComputer:
 
 
 if __name__ == "__main__":
-# MissionComputer 클래스를 RunComputer 라는 이름으로 인스턴스화
+    # MissionComputer 클래스를 RunComputer 라는 이름으로 인스턴스화
     RunComputer = MissionComputer()
-# RunComputer 인스턴스의 get_sensor_data() 메소드를 호출하여 지속적으로 데이터를 출력
+    # RunComputer 인스턴스의 get_sensor_data() 메소드를 호출하여 지속적으로 데이터를 출력
     RunComputer.get_sensor_data()
