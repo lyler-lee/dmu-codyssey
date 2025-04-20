@@ -1,7 +1,7 @@
 import random   // 랜덤한 난수 생성을 위해 내장 객체 random 모듈 임포트 
 import platform // 파이썬 버전, 윈도우 등의 버전 정보를 가져오기 위해 내장 객체 platform 모듈 임포트
 import os       // 운영체제를 활용하기 위해 내장 객체인 os 모듈 임포트
-import json     //json 형태의 데이터를 처리하기 위해 내장 객체 json 모듈 임포트
+import json     // json 형태의 데이터를 처리하기 위해 내장 객체 json 모듈 임포트
 
 
 // 센서의 값을 이용하기 위한 클래스
