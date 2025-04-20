@@ -3,11 +3,12 @@ import platform # 파이썬 버전, 윈도우 등의 버전 정보를 가져오�
 import os       # 운영체제를 활용하기 위해 내장 객체인 os 모듈 임포트
 import json     # json 형태의 데이터를 처리하기 위해 내장 객체 json 모듈 임포트
 import ctypes   # python에서 c의 기능를 사용하기 위해 내장 라이브러리 ctypes 사용
-import sys      # 
+import sys      # 파이썬에서 시스템에 접근하기 위해 내장 라이브러리 sys 사용
 
 
 # 더미 센서 클래스 정의
 class DummySensor:
+
     def __init__(self):
         # 센서 값들을 저장할 딕셔너리 초기화
         self.env_values = {
@@ -65,10 +66,11 @@ class MissionComputer:
             print(f"Error retrieving system load: {e}")
             return {}
 
-    # 플랫폼에 따라 CPU 부하를 가져오는 보조 메서드
+    # 플랫폼에 따라 CPU 부하를 가져오는 보조 메소드
     def _get_cpu_load(self):
         if platform.system() == "Windows":
             try:
+                # os.getloadavg()는 윈도우 시스템 운영 체제에서는 사용할 수 없기 때문에 예외 try 문에서도 사용할수 없다고 예외 처리를 해줌
                 return f"{os.getloadavg()} (Not supported on Windows, showing dummy value)"
             except:
                 return "Unavailable on Windows"
