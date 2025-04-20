@@ -1,5 +1,5 @@
-import random
-import platform
+import random // 랜덤한 난수 생성을 위해 내장 객체 random 모듈 임포트 
+import platform // 파이썬 버전, 윈도우 등의 버전 정보를 가져오기 위해 내장 객체 platform 모듈 임포트
 import os
 import json
 
