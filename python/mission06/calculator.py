@@ -11,7 +11,7 @@ pip install pyqt5
 pip install pyqt5-tools
 .py 파일이 위치한 디렉토리로 이동(cd or chdir) 후 .py 파일 실행
 
-본 코드는 windows cmd에서 실행하였음.
+본 코드는 windows cmd에서 실행하였음. (python 3.11.9 버전 사용)
 '''
 
 
@@ -43,8 +43,8 @@ class Calculator(QMainWindow):
         # UI 생성 함수 호출
         self._create_ui()
 
-
-    def _create_ui(self):
+    # 클래스 내부에서만 사용하기로 약속하는 함수 = '_' 하나를 함수명 앞에 붙여 표시
+    def _create_ui(self): 
 
         # 전체 레이아웃(수직 박스 레이아웃) 생성
         main_layout = QVBoxLayout()
@@ -83,7 +83,7 @@ class Calculator(QMainWindow):
                 elif row == 4 and col == 1:
                     continue
                 else:
-                    button = QPushButton(btn_text)          # 나머지 버튼 생성
+                    button = QPushButton(btn_text)
                     button.setFixedSize(60, 60)             # 일반 버튼 크기
 
                     # 마지막 행에서 두 번째 이후 버튼은 위치 조정
