@@ -11,7 +11,7 @@ pip install pyqt5
 pip install pyqt5-tools
 .py 파일이 위치한 디렉토리로 이동(cd or chdir) 후 .py 파일 실행
 
-본 코드는 windows cmd에서 실행하였음.
+본 코드는 windows cmd에서 실행하였음. (python 3.11.9 버전 사용)
 '''
 
 
