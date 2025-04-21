@@ -65,7 +65,7 @@ class Calculator(QMainWindow):
             ['7', '8', '9', '*'],
             ['4', '5', '6', '-'],
             ['1', '2', '3', '+'],
-            ['0', '0', '.', '=']
+            ['0', '.', '.', '=']
         ]
 
         self.button_map = {}  # 버튼 텍스트와 버튼 객체 매핑용 딕셔너리
@@ -78,6 +78,7 @@ class Calculator(QMainWindow):
                     button.setFixedSize(140, 60)            # 두 칸 크기
                     grid.addWidget(button, row, col, 1, 2)  # ( , 행, 열, 행합치기, 열합치기)
                 
+                         
 
                 # 이미 합쳐진 칸은 건너뜀
                 elif row == 4 and col == 1:
@@ -88,6 +89,7 @@ class Calculator(QMainWindow):
 
                     # 마지막 행에서 두 번째 이후 버튼은 위치 조정
                     grid.addWidget(button, row, col if not (row == 4 and col > 1) else col + 1)
+                        #   ㄴ 애드위젯으로 요소를 전부 붙이고
 
                 # 버튼 클릭 시 이벤트 연결
                 button.clicked.connect(self._on_button_clicked)
@@ -95,7 +97,7 @@ class Calculator(QMainWindow):
                 self.button_map[btn_text] = button
 
         # 그리드 레이아웃을 메인 레이아웃에 추가
-        main_layout.addLayout(grid)
+        main_layout.addLayout(grid)  # 요소를 붙인 것을 레이아웃에 배치함.
 
         # 중앙 위젯에 메인 레이아웃 설정
         self._central_widget.setLayout(main_layout)
@@ -134,7 +136,7 @@ class Calculator(QMainWindow):
         elif text == '%':
             if self.input_str:
                 try:
-                    self.input_str = str(float(self.input_str) / 100)  # 100으로 나누기
+                    self.input_str = str(float(self.input_str) / 100)   # 100으로 나누기
                 except Exception:
                     self.input_str = 'Error'                            # 나눌수 없는 경우 등의 계산 불가 예외에 걸리는 경우 "Error" 출력
 
