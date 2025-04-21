@@ -1,3 +1,20 @@
+'''
+vscode 같은 IDE에서 실행할 경우
+1. PyQt5 설치
+pip install PyQt5
+2. PyQt5 Designer 설치 
+
+windows cmd에서 실행할 경우
+python 설치 후
+cmd에서
+pip install pyqt5 
+pip install pyqt5-tools
+.py 파일이 위치한 디렉토리로 이동(cd or chdir) 후 .py 파일 실행
+
+본 코드는 windows cmd에서 실행하였음.
+'''
+
+
 # sys: 파이썬 인터프리터와 관련된 기능 제공 (여기서는 프로그램 종료에 사용)
 import sys
 
