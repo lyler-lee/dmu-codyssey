@@ -43,8 +43,8 @@ class Calculator(QMainWindow):
         # UI 생성 함수 호출
         self._create_ui()
 
-
-    def _create_ui(self):
+    # 클래스 내부에서만 사용하기로 약속하는 함수 = '_' 하나를 함수명 앞에 붙여 표시
+    def _create_ui(self): 
 
         # 전체 레이아웃(수직 박스 레이아웃) 생성
         main_layout = QVBoxLayout()
