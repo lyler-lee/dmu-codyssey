@@ -74,16 +74,16 @@ class Calculator(QMainWindow):
 
                 # 마지막 행의 첫 번째 '0' 버튼은 두 칸 크기 정도로 만듦 (아이폰 계산기 스타일)
                 if row == 4 and col == 0:
-                    button = QPushButton('0')
+                    button = QPushButton('0')               # '0' 버튼 생성
                     button.setFixedSize(140, 60)            # 두 칸 크기
-                    grid.addWidget(button, row, col, 1, 2)  # (행, 열, 행합치기, 열합치기)
+                    grid.addWidget(button, row, col, 1, 2)  # ( , 행, 열, 행합치기, 열합치기)
                 
 
                 # 이미 합쳐진 칸은 건너뜀
                 elif row == 4 and col == 1:
                     continue
                 else:
-                    button = QPushButton(btn_text)
+                    button = QPushButton(btn_text)          # 나머지 버튼 생성
                     button.setFixedSize(60, 60)             # 일반 버튼 크기
 
                     # 마지막 행에서 두 번째 이후 버튼은 위치 조정
@@ -91,7 +91,6 @@ class Calculator(QMainWindow):
 
                 # 버튼 클릭 시 이벤트 연결
                 button.clicked.connect(self._on_button_clicked)
-
                 # 버튼 텍스트로 버튼 객체 저장
                 self.button_map[btn_text] = button
 
@@ -108,8 +107,8 @@ class Calculator(QMainWindow):
     def _on_button_clicked(self):
 
         # 클릭된 버튼 객체를 가져옴
-        sender = self.sender()
-        text = sender.text()
+        sender = self.sender()      # sender()는 클릭된 버튼 객체를 반환
+        text = sender.text()        # 버튼의 텍스트를 가져옴
 
         # 숫자 및 소수점 입력 처리
         if text in {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'}:
@@ -117,8 +116,8 @@ class Calculator(QMainWindow):
 
         # 연산자 입력 처리 (연속 입력 방지)
         elif text in {'+', '-', '*', '/'}:
-            if self.input_str and self.input_str[-1] not in '+-*/':
-                self.input_str += text
+            if self.input_str and self.input_str[-1] not in '+-*/':     # 마지막 문자가 연산자가 아닌 경우에만 추가
+                self.input_str += text  
 
         # 전체 초기화(C) 버튼
         elif text == 'C':
@@ -126,7 +125,7 @@ class Calculator(QMainWindow):
 
         # 부호 변경(+/-) 버튼
         elif text == '+/-':
-            if self.input_str and self.input_str[0] == '-':
+            if self.input_str and self.input_str[0] == '-':         
                 self.input_str = self.input_str[1:]             # 부호가 '-'인 경우 제거
             elif self.input_str:
                 self.input_str = '-' + self.input_str           # 부호가 없는 경우 '-' 추가
@@ -137,7 +136,7 @@ class Calculator(QMainWindow):
                 try:
                     self.input_str = str(float(self.input_str) / 100)  # 100으로 나누기
                 except Exception:
-                    self.input_str = 'Error'                            # 나눌수 없을 경우 또는 예외(숫자 입력후 연산자 두번이상 입력 등)에 걸리는 경우 "Error" 출력
+                    self.input_str = 'Error'                            # 나눌수 없는 경우 등의 계산 불가 예외에 걸리는 경우 "Error" 출력
 
         # 계산 결과(=) 버튼
         elif text == '=':
