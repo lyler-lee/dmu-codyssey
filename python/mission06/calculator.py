@@ -83,7 +83,7 @@ class Calculator(QMainWindow):
                 elif row == 4 and col == 1:
                     continue
                 else:
-                    button = QPushButton(btn_text)
+                    button = QPushButton(btn_text)          # 나머지 버튼 생성
                     button.setFixedSize(60, 60)             # 일반 버튼 크기
 
                     # 마지막 행에서 두 번째 이후 버튼은 위치 조정
