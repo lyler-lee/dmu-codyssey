@@ -84,7 +84,7 @@ class Calculator(QMainWindow):
                     continue
                 else:
                     button = QPushButton(btn_text)
-                    button.setFixedSize(60, 60)             # 일반 버튼 크기
+                    button.setFixedSize(60, 60)             # 일반 버튼 크기인 60으로 설정
 
                     # 마지막 행에서 두 번째 이후 버튼은 위치 조정
                     grid.addWidget(button, row, col if not (row == 4 and col > 1) else col + 1)
