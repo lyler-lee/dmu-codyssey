@@ -4,11 +4,14 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QGridLayout, QPushButton, QLineEdit
 import sys
 
+# PyQt5.QtCore: PyQt에서 기본적인 상수와 기능 제공 (여기서는 정렬에 사용)
+from PyQt5.QtCore import Qt
+
 class Calculator:
     def __init__(self):
-        self.current_value = ''  # 현재 입력된 숫자 및 연산자 문자열
-        self.is_negative = False  # 음수 상태 플래그
-        self.has_decimal = False  # 소수점 입력 여부
+        self.current_value = ''   # 현재 입력된 숫자 및 연산자 문자열
+        self.is_negative = False  # 음수 상태를 뜻함. 초기 상태는 + 이므로 false.
+        self.has_decimal = False  # 소수점 입력 여부. 초기 상태는 소수점이 없으므로 false.
 
     def add(self, a, b):
         return a + b  # 덧셈 연산
@@ -94,7 +97,7 @@ class CalculatorUI(QWidget):
         self.layout = QVBoxLayout()  # 메인 레이아웃
         self.display = QLineEdit()  # 결과 표시용 입력창
         self.display.setReadOnly(True)  # 직접 입력 방지
-        self.display.setAlignment(2)  # 오른쪽 정렬
+        self.display.setAlignment(Qt.AlignRight)  # 오른쪽 정렬
         self.layout.addWidget(self.display)
 
         self.buttons = QGridLayout()  # 버튼 그리드 레이아웃
@@ -156,9 +159,10 @@ class CalculatorUI(QWidget):
         self.calc.percent()  # 퍼센트 계산
         self.display.setText(self.calc.current_value)
 
-# 아래 코드는 calculator.py 파일의 맨 아래에 위치해야 하며, 직접 실행할 때만 동작합니다.
+
+# 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = CalculatorUI()
-    ex.show()
-    sys.exit(app.exec_())
+    app = QApplication(sys.argv)    # QApplication 객체 생성
+    ex = CalculatorUI()             # Calculator 인스턴스 생성
+    ex.show()                       # 계산기 윈도우 표시
+    sys.exit(app.exec_())           # 이벤트 루프 실행 및 종료 처리
