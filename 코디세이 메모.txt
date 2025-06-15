@@ -1,0 +1,124 @@
+세팅값을 출력하는걸 ㅓ떤ㄹ 할ㄹㄴㄴ지...!?
+
+
+
+메소드의 값을 쉽게 추가/삭제할수잇는 방법은?!....
+
+구조적으로 만들어 써야하는ㄱ 아닌가...
+
+
+세팅. txt를 걍 로ㅡ로 저장...
+
+인스턴스 메소드는 self 클래스 메소드느 cls 스태틱메소드는 인자로 암것도 안들어감!?
+self.runable = {} 로 클래스의 
+
+클래스의 인스턴스를 만들어서 메소드로 호출해야되는데
+
+math 같은거처럼 클래스 안에 @staticmethod 를 사용해서 self.runable에서 사용
+
+
+맥os는 os_name을  darwin 으ㅗ 인식!?
+
+
+출
+
+
+
+{ -키 안에 키:밸류 형태의 ㅓ내
+    "system_info": 키 {
+	키 : 밸류
+        "os": true,
+        "os_version": true,
+        "cpu_type": false,
+        "cpu_cores": false,
+        "memory_gb": false
+    },
+    "system_load": 키 {
+	키  : 밸류
+        "cpu_usage": true,
+        "memory_usage": false
+    }
+}
+
+
+트루폴스로 원하는 값을 ㅋ끄고
+
+class SystemInfo:
+    @staticmethod
+    def get_cpu_usage():
+        try:
+            return psutil.cpu_percent(interval=1)
+        except Exception as e:
+            return None    
+    @staticmethod
+    def get_memory_usage():
+        try:
+            return psutil.virtual_memory().percent
+        except Exception as e:
+            return None
+    @staticmethod
+    def get_os():
+        try:
+            return platform.system()
+        except Exception as e:
+            return None
+    @staticmethod
+    def get_os_version():
+        try:
+            return platform.version()
+        except Exception as e:
+            return None 
+    @staticmethod      
+    def get_cpu_type():
+        try:
+            return platform.processor()
+        except Exception as e:
+            return None
+    @staticmethod       
+    def get_cpu_cores():
+        try:
+            return psutil.cpu_count(logical=False)
+			ㄴ 속성들ㅇㄹ 스태틱ㅔ소드 없이 그냥 만들어도되지만 
+					ㄴ 이걸 쓰면 따로 메소드 안엣 속성을 추가 수정 삭제가 용이...
+			새 속성을 추가하더라도 추가한거 출력코드만 만들면댐
+		ㄴ 파이썬의 유틸리티 역할을 하는 모듈[import psutill  로 위에서 선언해야...]
+        except Exception as e:
+            return None 
+    @staticmethod        
+    def get_memory_gb():
+        try:
+            return round(psutil.virtual_memory().total / (1024 ** 3), 2)
+        except Exception as e:
+            return None 
+시스템 정보가ㅏㅄ는 정적인 값이므로 스태틱메소드로!?
+
+json에서 true false로 활성화 한값만 출력하고
+getattr()로 받아와 출력해서 코드를 최대한 건드리지 않게 하여 유지보수가 용ㅇ하게함
+
+
+이렇게 메소드에 전부 @staticmethod 를 붙여서 사용!??.... 오ㅒ?
+
+
+
+
+
+ method = getattr(SystemInfo, f'get_{key}')
+	                                 ㄴ  키에서
+		       ㄴ 	시스템인포 최화하너ㅇ다가...
+                            self.system_info[key] = method()
+					ㄴ 순회를 돌려서 값을 가져오게함?
+				 ㄴ 키만 가져다가 
+	
+
+사실 프젝이 점점 발전해서 하는거라 스레드로 하는 사람도 잇엇음~
+
+이번주까지는 ㅐㅔ지향 구조에 관해서 많이 나왔는데
+담주부턴 단편적인 걸로 마니 나옴..
+
+계산기같은거도 생성형 ai 돌림 쉬운데
+pyQT로 캔버스에 요소들을 어케 엊고 gui를 어케 만들지 한번 고민해보삼...
+소스 나온거 구체적으로 설명하시거~
+
+중간고사떄까지 다 패스해놓으셈!!.....
+
+

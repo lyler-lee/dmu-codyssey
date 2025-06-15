@@ -1,0 +1,204 @@
+
+
+
+
+# calculator.py
+
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QGridLayout, QPushButton, QLineEdit, QSizePolicy
+from PyQt5.QtGui import QFont, QColor, QPalette
+import sys
+
+class Calculator:
+    def __init__(self):
+        self.current_value = ''
+        self.is_negative = False
+        self.has_decimal = False
+
+    def add(self, a, b):
+        return a + b
+
+    def subtract(self, a, b):
+        return a - b
+
+    def multiply(self, a, b):
+        return a * b
+
+    def divide(self, a, b):
+        if b == 0:
+            raise ValueError('0으로 나눌 수 없습니다.')
+        return a / b
+
+    def reset(self):
+        self.current_value = ''
+        self.is_negative = False
+        self.has_decimal = False
+
+    def negative_positive(self):
+        self.is_negative = not self.is_negative
+
+    def percent(self):
+        if self.current_value:
+            try:
+                value = float(self.current_value)
+                value /= 100
+                self.current_value = self.format_number(value)
+            except Exception:
+                self.current_value = '잘못된 수식입니다.'
+
+    def input_number(self, num):
+        if self.current_value == '0':
+            self.current_value = str(num)
+        else:
+            self.current_value += str(num)
+
+    def input_decimal(self):
+        if not self.has_decimal:
+            if self.current_value == '':
+                self.current_value = '0.'
+            else:
+                self.current_value += '.'
+            self.has_decimal = True
+
+    def equal(self):
+        try:
+            expr = self.current_value
+            if self.is_negative and not expr.startswith('-'):
+                expr = '-' + expr
+            result = eval(expr)
+            self.current_value = self.format_number(result)
+            return self.current_value
+        except ZeroDivisionError:
+            self.current_value = ''
+            return '0으로 나눌 수 없습니다.'
+        except Exception:
+            self.current_value = ''
+            return '잘못된 수식입니다.'
+
+    def format_number(self, value):
+        try:
+            if abs(value) >= 1e10 or (abs(value) < 1e-6 and value != 0):
+                return '{:e}'.format(value)
+            else:
+                return str(float(value)).rstrip('0').rstrip('.') if '.' in str(value) else str(value)
+        except Exception:
+            return str(value)
+
+class CalculatorUI(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.calc = Calculator()
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle('Calculator')
+        self.setGeometry(100, 100, 340, 520)
+
+        main_layout = QVBoxLayout()
+        self.display = QLineEdit()
+        self.display.setReadOnly(True)
+        self.display.setAlignment(2)
+        self.display.setFont(QFont('Arial', 36))
+        self.display.setStyleSheet('background-color: black; color: white; border: none;')
+        main_layout.addWidget(self.display)
+
+        grid = QGridLayout()
+        grid.setSpacing(8)
+
+        # 아이폰 계산기 버튼 순서 및 라벨
+        buttons = [
+            [('AC', 'gray'), ('+/-', 'gray'), ('%', 'gray'), ('÷', 'orange')],
+            [('7', 'dark'), ('8', 'dark'), ('9', 'dark'), ('×', 'orange')],
+            [('4', 'dark'), ('5', 'dark'), ('6', 'dark'), ('-', 'orange')],
+            [('1', 'dark'), ('2', 'dark'), ('3', 'dark'), ('+', 'orange')],
+            [('0', 'dark', 2), ('.', 'dark'), ('=', 'orange')]
+        ]
+
+        # 버튼 생성 및 배치
+        for row, btn_row in enumerate(buttons):
+            col = 0
+            for btn in btn_row:
+                if len(btn) == 3:  # '0' 버튼은 colspan=2
+                    text, color, colspan = btn
+                else:
+                    text, color = btn
+                    colspan = 1
+
+                button = QPushButton(text)
+                button.setFont(QFont('Arial', 22))
+                button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                if color == 'orange':
+                    button.setStyleSheet('background-color: #FF9500; color: white; border-radius: 32px;')
+                elif color == 'gray':
+                    button.setStyleSheet('background-color: #A5A5A5; color: black; border-radius: 32px;')
+                else:
+                    button.setStyleSheet('background-color: #333333; color: white; border-radius: 32px;')
+
+                # 버튼 핸들러 연결
+                if text in '0123456789':
+                    button.clicked.connect(self.num_clicked)
+                elif text == '.':
+                    button.clicked.connect(self.decimal_clicked)
+                elif text in ['+', '-', '×', '÷']:
+                    button.clicked.connect(self.op_clicked)
+                elif text == '=':
+                    button.clicked.connect(self.equal_clicked)
+                elif text == 'AC':
+                    button.clicked.connect(self.reset_clicked)
+                elif text == '+/-':
+                    button.clicked.connect(self.neg_pos_clicked)
+                elif text == '%':
+                    button.clicked.connect(self.percent_clicked)
+
+                grid.addWidget(button, row, col, 1, colspan)
+                col += colspan
+
+        main_layout.addLayout(grid)
+        self.setLayout(main_layout)
+
+    def num_clicked(self):
+        button = self.sender()
+        self.calc.input_number(button.text())
+        self.display.setText(self.calc.current_value)
+
+    def op_clicked(self):
+        button = self.sender()
+        op = button.text()
+        if op == '×':
+            op = '*'
+        elif op == '÷':
+            op = '/'
+        if self.calc.current_value and self.calc.current_value[-1] not in '+-*/':
+            self.calc.input_number(op)
+            self.calc.has_decimal = False
+        self.display.setText(self.calc.current_value)
+
+    def decimal_clicked(self):
+        self.calc.input_decimal()
+        self.display.setText(self.calc.current_value)
+
+    def equal_clicked(self):
+        result = self.calc.equal()
+        self.display.setText(str(result))
+
+    def reset_clicked(self):
+        self.calc.reset()
+        self.display.setText(self.calc.current_value)
+
+    def neg_pos_clicked(self):
+        self.calc.negative_positive()
+        if self.calc.current_value:
+            if self.calc.is_negative and not self.calc.current_value.startswith('-'):
+                self.calc.current_value = '-' + self.calc.current_value
+            elif not self.calc.is_negative and self.calc.current_value.startswith('-'):
+                self.calc.current_value = self.calc.current_value[1:]
+        self.display.setText(self.calc.current_value)
+
+    def percent_clicked(self):
+        self.calc.percent()
+        self.display.setText(self.calc.current_value)
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = CalculatorUI()
+    ex.show()
+    sys.exit(app.exec_())
