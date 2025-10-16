@@ -31,4 +31,4 @@ if __name__ == '__main__':
     headlines = get_headline_news()
     print_headlines(headlines)
 
-    
+
