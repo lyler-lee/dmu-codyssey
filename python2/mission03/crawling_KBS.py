@@ -31,4 +31,4 @@ def print_headlines(headline_list):
 if __name__ == '__main__':
     headlines = get_headline_news()
     print_headlines(headlines)              # 헤드라인 뉴스 내용의 서두 일부 출력
-    # print(len(headlines))                   # 헤드라인 뉴스 내용 서두를 가져온 횟수를 출력
+    # print(len(headlines))                 # 헤드라인 뉴스 내용 서두를 가져온 횟수를 출력
